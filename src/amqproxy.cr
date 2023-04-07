@@ -4,6 +4,7 @@ require "option_parser"
 require "uri"
 require "ini"
 require "logger"
+require "crometheus"
 
 class AMQProxy::CLI
   @listen_address = ENV["LISTEN_ADDRESS"]? || "localhost"
@@ -72,6 +73,14 @@ class AMQProxy::CLI
     tls = u.scheme == "amqps"
 
     server = AMQProxy::Server.new(u.host || "", port, tls, @log_level, @idle_connection_timeout)
+
+    info = Crometheus::Gauge[:version].new(
+      :amqproxy_info,
+      "AMQProxy build info")
+    info[version: AMQProxy::VERSION.to_s.rstrip].set 1.0
+
+    Crometheus.default_registry.port = 5001
+    Crometheus.default_registry.run_server
 
     first_shutdown = true
     shutdown = ->(_s : Signal) do
