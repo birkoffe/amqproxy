@@ -81,7 +81,7 @@ class AMQProxy::CLI
 
     Crometheus.default_registry.port = 5001
     Crometheus.default_registry.namespace = "amqproxy"
-    Crometheus.default_registry.run_server
+    Crometheus.default_registry.start_server
 
     first_shutdown = true
     shutdown = ->(_s : Signal) do
