@@ -12,6 +12,10 @@ shards:
     git: https://github.com/cloudamqp/amqp-client.cr.git
     version: 1.0.11
 
+  crometheus:
+    git: https://github.com/darwinnn/crometheus.git
+    version: 0.3.0+git.commit.c71a13174d02e3767b62faa1771132d4245e1ce5
+
   logger:
     git: https://github.com/84codes/logger.cr.git
     version: 1.0.2
